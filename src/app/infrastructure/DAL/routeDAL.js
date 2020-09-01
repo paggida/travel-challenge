@@ -1,5 +1,6 @@
 const IRouteMethods = require('../../domain/contracts/IRouteMethods');
 const RouteServices = require('../../../database/services/routeServices');
+const ResponseObj = require('../../domain/models/ResponseObj');
 
 const RouteDAL = Object.assign({}, IRouteMethods);
 
