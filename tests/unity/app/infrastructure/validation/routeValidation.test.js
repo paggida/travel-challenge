@@ -1,23 +1,38 @@
+const Route = require('../../../../../src/app/domain/models/Route');
 const routeValidation = require('../../../../../src/app/infrastructure/validation/routeValidation');
 
-describe('Validation of the route.', () => {
+describe('Validation of the route in class format.', () => {
+  it('Should be able to validate a valid route object.', () => {
+    const routeObj = new Route(['A', 'B'],10)
+    const isValid = routeValidation.isValidRouteObject(routeObj);
+
+    expect(isValid).toBeTruthy();
+  });
+  it('Should not be able to validate a invalid route object', () => {
+    const isValid = routeValidation.isValidRouteObject({ Destinations: ['A', 'B'], Price: 10});
+
+    expect(isValid).toBeFalsy();
+  });
+});
+
+describe('Validation of the route in string format.', () => {
   it('Should be able to validate a valid route.', () => {
-    const isValid = routeValidation.isValidRoute('GRU-CGD');
+    const isValid = routeValidation.isValidRouteString('GRU-CGD');
 
     expect(isValid).toBeTruthy();
   });
   it('Should not be able to validate a route without two destinations.', () => {
-    const isValid = routeValidation.isValidRoute('-CGD');
+    const isValid = routeValidation.isValidRouteString('-CGD');
 
     expect(isValid).toBeFalsy();
   });
   it('Should not be able to validate a route without the separator.', () => {
-    const isValid = routeValidation.isValidRoute('GRUCGD');
+    const isValid = routeValidation.isValidRouteString('GRUCGD');
 
     expect(isValid).toBeFalsy();
   });
   it('Should not be able to validate a route with more than one separator.', () => {
-    const isValid = routeValidation.isValidRoute('GRU-CGD-BRC');
+    const isValid = routeValidation.isValidRouteString('GRU-CGD-BRC');
 
     expect(isValid).toBeFalsy();
   });
