@@ -1,0 +1,88 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0",
+    "title": "Travel project"
+  },
+  "host": "localhost:3000",
+  "tags": [
+    { "name": "Routes", "description": "Features to handle the routes data." }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/api/route": {
+      "post": {
+        "tags": ["Routes"],
+        "summary": "Create a new route.",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Route object that needs to be create.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Route" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/routes/{originDestination}/{targetDestination}": {
+      "get": {
+        "tags": ["Routes"],
+        "summary": "Search for the best route between two destinations.",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "originDestination",
+            "in": "path",
+            "description": "The origin destination name.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "targetDestination",
+            "in": "path",
+            "description": "The target destination name.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Route": {
+      "type": "object",
+      "properties": {
+        "initialDestination": { "type": "string" },
+        "finalDestination": { "type": "string" },
+        "price": {
+          "type": "number"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": { "type": "string" }
+      }
+    }
+  }
+}

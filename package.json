@@ -1,0 +1,24 @@
+{
+  "name": "travel",
+  "version": "1.0.0",
+  "main": "index-Api.js",
+  "license": "MIT",
+  "bin": {
+    "travel-cli": "src/index-Cli.js"
+  },
+  "scripts": {
+    "start": "nodemon src/index-Api.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "commander": "^6.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
+    "swagger-ui-express": "^4.1.4",
+    "supertest": "^4.0.2"
+  }
+}
