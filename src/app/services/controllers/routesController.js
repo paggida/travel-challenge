@@ -1,5 +1,5 @@
 module.exports = {
-  async create(req, res) {
+  async setNewRoute(req, res) {
     const newDestination = req.body;
 
     return res.status(200).json({ message: newDestination});
