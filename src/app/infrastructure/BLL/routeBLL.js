@@ -1,11 +1,17 @@
 const IRouteMethods = require('../../domain/contracts/IRouteMethods');
+const ResponseObj = require('../../domain/models/ResponseObj');
 const RouteDAL = require('../DAL/routeDAL');
-const routeValidation = require('../validation/routeValidation');
+const resObjValidation = require('../validation/responseObjValidation');
 
 const RouteBLL = Object.assign({}, IRouteMethods);
 
 RouteBLL.setNew = async routeObj =>{
-  //TBD
+  const existingRoute = await RouteDAL.search(routeObj.Destinations);
+
+  if(resObjValidation.isSuccessResponse(existingRoute)){
+    return new ResponseObj(401, 'Route already existing.');
+  }
+
   return await RouteDAL.setNew(routeObj);
 }
 

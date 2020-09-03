@@ -11,13 +11,10 @@ const _initializeDataFile = () =>{
   if(_isDataFileNonexistent()){
     _createDataFile();
   }
-}
-const _createDataFile = () => {
-  fs.closeSync(fs.openSync(_csvDataFilePath, 'a'));
 };
+const _createDataFile = () => fs.closeSync(fs.openSync(_csvDataFilePath, 'a'));
 
 const _csvDataFilePath = path.resolve(__dirname, '..', 'data', 'input-file.csv');
-
 const _isDataFileNonexistent = () => !fs.existsSync(_csvDataFilePath);
 
 _initializeDataFile();

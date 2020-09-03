@@ -5,7 +5,11 @@ const ResponseObj = require('../../domain/models/ResponseObj');
 const RouteDAL = Object.assign({}, IRouteMethods);
 
 RouteDAL.setNew = async routeObj =>{
-  //TBD
+  return await RouteServices.setNew(routeObj.ToScvString());
+}
+
+RouteDAL.search = async (destinations=[]) =>{
+  return await RouteServices.search(destinations);
 }
 
 RouteDAL.getCheapest = async (originDestination, targetDestination) =>{
@@ -13,14 +17,3 @@ RouteDAL.getCheapest = async (originDestination, targetDestination) =>{
 }
 
 module.exports = RouteDAL;
-
-  const testeFnc = async () => {
-    //const teste = await RouteServices.setNew('ABC,CBA,999');
-    const search = await RouteServices.getAll();
-    console.log(search);
-    console.log(await RouteServices.delete(['SCL','ORL'],20));
-    const search2 = await RouteServices.getAll();
-    console.log(search2);
-  }
-
-  testeFnc();

@@ -26,7 +26,7 @@ module.exports = {
       return price>=0;
     }
     return false;
-  },
+  }
 }
 
 const isValidDestinationArraySize = destinationArray => (destinationArray.length === 2);
