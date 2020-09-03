@@ -4,14 +4,14 @@ const routeValidation = require('../validation/routeValidation');
 
 const RouteBLL = Object.assign({}, IRouteMethods);
 
-RouteBLL.setNewRoute = async routeObj =>{
+RouteBLL.setNew = async routeObj =>{
   //TBD
-  return await RouteDAL.setNewRoute(routeObj);
+  return await RouteDAL.setNew(routeObj);
 }
 
-RouteBLL.getCheapestRoute = async (originDestination, targetDestination) =>{
+RouteBLL.getCheapest = async (originDestination, targetDestination) =>{
   //TBD
-  return await RouteDAL.getCheapestRoute(originDestination, targetDestination);
+  return await RouteDAL.getCheapest(originDestination, targetDestination);
 }
 
 module.exports = RouteBLL;

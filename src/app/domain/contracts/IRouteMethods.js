@@ -1,6 +1,6 @@
 const IRouteMethods = {
-  setNewRoute: routeObj =>{},
-  getCheapestRoute: (originDestination, targetDestination)=>{},
+  setNew: routeObj =>{},
+  getCheapest: (originDestination, targetDestination)=>{},
 }
 
 module.exports = IRouteMethods
