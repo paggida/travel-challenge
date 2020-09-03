@@ -23,7 +23,7 @@ const _isDataFileNonexistent = () => !fs.existsSync(_csvDataFilePath);
 _initializeDataFile();
 
 module.exports = {
-  async setNewRoute(newRouteString) {
+  async setNew(newRouteString) {
     const error = await promisify(fs.appendFile)(_csvDataFilePath, `${newRouteString}\n`);
 
     if (error) {
@@ -34,8 +34,24 @@ module.exports = {
     }
   },
 
-  async deleteRoute(destinations=[],price) {
-    const { Data:dataFileRecordsArray} = await this.getAllRoutes();
+  async search(destinations=[]) {
+    const { Data:dataFileRecordsArray} = await this.getAll();
+    const route = dataFileRecordsArray.find(route => {
+      return (route[0]===destinations[0] && route[1]===destinations[1])
+              ||
+              (route[0]===destinations[1] && route[1]===destinations[0]);
+    });
+
+    if(route){
+      return new ResponseObj(200, route);
+    }
+    else{
+      return new ResponseObj(404, 'Route not found.');
+    }
+  },
+
+  async delete(destinations=[],price) {
+    const { Data:dataFileRecordsArray} = await this.getAll();
     const filterDataFileRecords = dataFileRecordsArray.filter(route => route[0]!==destinations[0] || route[1]!==destinations[1] || route[2]!== price.toString());
     const recordsCsvString = filterDataFileRecords.reduce((total, route)=>`${total}${route[0]},${route[1]},${route[2]}\n`, '\n').slice(1);
 
@@ -53,7 +69,7 @@ module.exports = {
     }
   },
 
-  async getAllRoutes() {
+  async getAll() {
     const output = [];
 
     const csvReader = fs.createReadStream(_csvDataFilePath)

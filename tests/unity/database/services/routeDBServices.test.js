@@ -3,7 +3,7 @@ const path = require('path');
 const es = require('event-stream');
 const csvParse = require('csv-parse');
 const ResponseObj = require('../../../../src/app/domain/models/ResponseObj');
-const routerDBServices = require('../../../../src/database/services/routerDBServices');
+const routeDBServices = require('../../../../src/database/services/routeDBServices');
 const csvDataFilePath =  path.resolve(__dirname, '..', '..', '..', '..', 'src', 'database', 'data','input-file.csv');
 
 describe('Validation of the search for all routes in the CSV file.', () => {
@@ -26,7 +26,7 @@ describe('Validation of the search for all routes in the CSV file.', () => {
       });
     });
 
-    const response = await routerDBServices.getAllRoutes();
+    const response = await routeDBServices.getAll();
 
     expect(response).toBeInstanceOf(ResponseObj);
     expect(response).toHaveProperty('Code', 200);
@@ -37,11 +37,11 @@ describe('Validation of the search for all routes in the CSV file.', () => {
 
 describe('Validation of the route creation flow in the CSV file.', () => {
   it('Should be able to save a new route in the CSV file.', async () => {
-    const oldRoutesData = await routerDBServices.getAllRoutes();
+    const oldRoutesData = await routeDBServices.getAll();
 
-    const createResponse = await routerDBServices.setNewRoute('TestRouteJest,TestRouteJest,99999');
+    const createResponse = await routeDBServices.setNew('TestRouteJest,TestRouteJest,99999');
 
-    const {Data:newRoutesData} = await routerDBServices.getAllRoutes();
+    const {Data:newRoutesData} = await routeDBServices.getAll();
 
     const newRoutes = newRoutesData[newRoutesData.length-1];
 
@@ -58,13 +58,32 @@ describe('Validation of the route creation flow in the CSV file.', () => {
   });
 });
 
+describe('Validation of the search of a specific route in the CSV file.', () => {
+  it('Should be able to find an existing route in the CSV file.', async () => {
+    const route = await routeDBServices.search(['TestRouteJest','TestRouteJest']);
+
+    expect(route).toHaveProperty('Code', 200);
+    expect(route).toHaveProperty('Data');
+    expect(route.Data[0]).toBe('TestRouteJest');
+    expect(route.Data[1]).toBe('TestRouteJest');
+    expect(route.Data[2]).toBe('99999');
+  });
+  it('Should not be able to find a not exits route in the CSV file.', async () => {
+    const route = await routeDBServices.search(['TestRouteJest02','TestRouteJest02']);
+
+    expect(route).toHaveProperty('Code', 404);
+    expect(route).toHaveProperty('Data');
+    expect(route.Data).toHaveProperty('message','Route not found.');
+  });
+});
+
 describe('Validation of the route delete flow in the CSV file.', () => {
   it('Should be able to delete an existing route in the CSV file.', async () => {
-    const oldRoutesData = await routerDBServices.getAllRoutes();
+    const oldRoutesData = await routeDBServices.getAll();
 
-    const deleteResponse = await routerDBServices.deleteRoute(['TestRouteJest','TestRouteJest'],99999);
+    const deleteResponse = await routeDBServices.delete(['TestRouteJest','TestRouteJest'],99999);
 
-    const newRoutesData = await routerDBServices.getAllRoutes();
+    const newRoutesData = await routeDBServices.getAll();
 
     expect(deleteResponse).toBeInstanceOf(ResponseObj);
     expect(deleteResponse).toHaveProperty('Code', 200);
@@ -74,11 +93,11 @@ describe('Validation of the route delete flow in the CSV file.', () => {
     expect(newRoutesData.Data.length).toBeLessThan(oldRoutesData.Data.length);
   });
   it('Should not be able to delete a route that does not exist in the CSV file.', async () => {
-    const oldRoutesData = await routerDBServices.getAllRoutes();
+    const oldRoutesData = await routeDBServices.getAll();
 
-    const deleteResponse = await routerDBServices.deleteRoute(['TestRouteJest2','TestRouteJest2'],99999);
+    const deleteResponse = await routeDBServices.delete(['TestRouteJest2','TestRouteJest2'],99999);
 
-    const newRoutesData = await routerDBServices.getAllRoutes();
+    const newRoutesData = await routeDBServices.getAll();
 
     expect(deleteResponse).toBeInstanceOf(ResponseObj);
     expect(deleteResponse).toHaveProperty('Code', 404);
