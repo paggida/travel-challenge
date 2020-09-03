@@ -49,7 +49,8 @@ describe('Validation of the route creation flow in the CSV file.', () => {
     expect(createResponse).toBeInstanceOf(ResponseObj);
     expect(createResponse).toHaveProperty('Code', 200);
     expect(oldRoutesData).toHaveProperty('Code', 200);
-    expect(createResponse).toHaveProperty('Data', 'Successful route creation.');
+    expect(createResponse).toHaveProperty('Data');
+    expect(createResponse.Data).toHaveProperty('message', 'Successful route creation.');
     expect(newRoutesData.length).toBeGreaterThan(oldRoutesData.Data.length);
     expect(newRoutes).toHaveLength(3);
     expect(newRoutes[0]).toBe('TestRouteJest');
@@ -89,7 +90,8 @@ describe('Validation of the route delete flow in the CSV file.', () => {
     expect(deleteResponse).toHaveProperty('Code', 200);
     expect(newRoutesData).toHaveProperty('Code', 200);
     expect(oldRoutesData).toHaveProperty('Code', 200);
-    expect(deleteResponse).toHaveProperty('Data', 'Successful delete route.');
+    expect(deleteResponse).toHaveProperty('Data');
+    expect(deleteResponse.Data).toHaveProperty('message', 'Successful delete route.');
     expect(newRoutesData.Data.length).toBeLessThan(oldRoutesData.Data.length);
   });
   it('Should not be able to delete a route that does not exist in the CSV file.', async () => {

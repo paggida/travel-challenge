@@ -30,7 +30,7 @@ module.exports = {
       return new ResponseObj(500, _getErrorMessage(error));
     }
     else {
-      return new ResponseObj(200, 'Successful route creation.');
+      return new ResponseObj(200, { message: 'Successful route creation.'});
     }
   },
 
@@ -65,7 +65,7 @@ module.exports = {
       return new ResponseObj(500, _getErrorMessage(error));
     }
     else {
-      return new ResponseObj(200, 'Successful delete route.');
+      return new ResponseObj(200, { message: 'Successful delete route.' });
     }
   },
 
