@@ -1,9 +1,9 @@
-const IRouteMethods = require('../../domain/contracts/IRouteMethods');
+const IRouteBLLMethods = require('../../domain/contracts/IRouteBLLMethods');
 const ResponseObj = require('../../domain/models/ResponseObj');
 const RouteDAL = require('../DAL/routeDAL');
 const resObjValidation = require('../validation/responseObjValidation');
 
-const RouteBLL = Object.assign({}, IRouteMethods);
+const RouteBLL = Object.assign({}, IRouteBLLMethods);
 
 RouteBLL.setNew = async routeObj =>{
   const existingRoute = await RouteDAL.search(routeObj.Destinations);
@@ -15,9 +15,9 @@ RouteBLL.setNew = async routeObj =>{
   return await RouteDAL.setNew(routeObj);
 }
 
-RouteBLL.getCheapest = async (originDestination, targetDestination) =>{
+RouteBLL.getCheapest = async (originDestination, targetDestination, dataFile = 'input-file.csv') =>{
   //TBD
-  return await RouteDAL.getCheapest(originDestination, targetDestination);
+  return await RouteDAL.getCheapest(originDestination, targetDestination, dataFile);
 }
 
 module.exports = RouteBLL;
