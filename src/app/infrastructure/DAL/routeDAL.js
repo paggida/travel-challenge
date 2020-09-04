@@ -12,12 +12,18 @@ RouteDAL.search = async (destinations=[]) =>{
   return await RouteServices.search(destinations);
 }
 
-RouteDAL.delete = async (DataFile) =>{
-  //TBD
+RouteDAL.delete = async (routeObj, dataFile=undefined) =>{
+  return new ResponseObj(501,'Not implemented.')
 }
 
-RouteDAL.getAll = async (DataFile) =>{
-  //TBD
+RouteDAL.getAll = async (dataFile=undefined) =>{
+  if(_isEmptyDataFileValue(dataFile)){
+    return await RouteServices.getAll();
+  }else{
+    return await RouteServices.getAll(dataFile);
+  }
 }
+
+const _isEmptyDataFileValue = dataFile => dataFile? true: false;
 
 module.exports = RouteDAL;
