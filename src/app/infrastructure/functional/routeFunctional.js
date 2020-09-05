@@ -1,5 +1,5 @@
 module.exports = {
-  convertRouteStringToArray(routeString){
+  getConvertRouteStringToArray(routeString){
     const destinations =  routeString.split('-');
     return destinations;
   }
