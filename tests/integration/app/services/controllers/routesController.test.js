@@ -1,10 +1,12 @@
 const request = require('supertest');
 const app = require('../../../../../src/server');
+const Route = require('../../../../../src/app/domain/models/Route');
 const routeDBServices = require('../../../../../src/database/services/routeDBServices');
 
 describe('Validation of the route create flow.', () => {
   afterAll(async () => {
-    await routeDBServices.delete(['TestRouteJest','TestRouteJest'],999.99);
+    const routeObj = new Route(['TestRouteJest','TestRouteJest'],999.99)
+    await routeDBServices.delete(routeObj);
   });
 
   it('Should be able to save a valid route.', async () => {

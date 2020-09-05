@@ -12,7 +12,7 @@ routeDBServices.setNew = async (newRouteString, csvDataFile = 'input-file.csv') 
 
   _initializeDataFile(csvDataFile);
 
-  const error = await promisify(fs.appendFile)(_csvDataFilePath(csvDataFile), `${newRouteString}\n`);
+  const error = await promisify(fs.appendFile)(_csvDataFilePath(csvDataFile), `${newRouteString}`);
 
   if (error) {
     return new ResponseObj(500, _getErrorMessage(error));
@@ -25,7 +25,7 @@ routeDBServices.setNew = async (newRouteString, csvDataFile = 'input-file.csv') 
 routeDBServices.search = async (destinations, csvDataFile = 'input-file.csv') =>{
   _initializeDataFile(csvDataFile);
 
-  const { Data:dataFileRecordsArray} = await this.getAll(csvDataFile);
+  const { Data:dataFileRecordsArray} = await routeDBServices.getAll(csvDataFile);
   const route = dataFileRecordsArray.find(route => {
     return (route[0]===destinations[0] && route[1]===destinations[1])
             ||
@@ -42,7 +42,7 @@ routeDBServices.search = async (destinations, csvDataFile = 'input-file.csv') =>
 
 routeDBServices.delete = async (routeObj, csvDataFile = 'input-file.csv') =>{
   const { Destinations, Price } = routeObj;
-  const { Data:dataFileRecordsArray} = await this.getAll(csvDataFile);
+  const { Data:dataFileRecordsArray} = await routeDBServices.getAll(csvDataFile);
   const filterDataFileRecords = dataFileRecordsArray.filter(route => route[0]!==Destinations[0] || route[1]!==Destinations[1] || route[2]!== Price.toString());
   const recordsCsvString = filterDataFileRecords.reduce((total, route)=>`${total}${route[0]},${route[1]},${route[2]}\n`, '\n').slice(1);
 

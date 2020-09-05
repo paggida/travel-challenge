@@ -5,7 +5,7 @@ const csvParse = require('csv-parse');
 const Route = require('../../../../src/app/domain/models/Route');
 const ResponseObj = require('../../../../src/app/domain/models/ResponseObj');
 const routeDBServices = require('../../../../src/database/services/routeDBServices');
-const csvDataFilePath =  path.resolve(__dirname, '..', '..', '..', '..', 'src', 'database', 'data','input-file.csv');
+const csvDataFilePath =  path.resolve(__dirname, '..', '..', '..', '..', 'src', 'database', 'data','input-file-test.csv');
 
 describe('Validation of the search for all routes in the CSV file.', () => {
   it('Should be able to get all routes in CSV file.', async () => {
