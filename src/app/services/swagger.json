@@ -11,7 +11,7 @@
   ],
   "schemes": ["http"],
   "paths": {
-    "/api/route": {
+    "/travel-api/route": {
       "post": {
         "tags": ["Routes"],
         "summary": "Create a new route.",
@@ -33,7 +33,7 @@
         }
       }
     },
-    "/api/routes/{originDestination}/{targetDestination}": {
+    "/travel-api/routes/{originDestination}/{targetDestination}": {
       "get": {
         "tags": ["Routes"],
         "summary": "Search for the best route between two destinations.",
