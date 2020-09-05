@@ -13,7 +13,7 @@ RouteDAL.search = async (destinations=[]) =>{
 }
 
 RouteDAL.delete = async (routeObj, dataFile=undefined) =>{
-  return new ResponseObj(501,'Not implemented.')
+  return new ResponseObj(501,'Not implemented.');
 }
 
 RouteDAL.getAll = async (dataFile=undefined) =>{

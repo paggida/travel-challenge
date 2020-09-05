@@ -17,7 +17,7 @@ RouteBLL.setNew = async routeObj =>{
 
 RouteBLL.getCheapest = async (originDestination, targetDestination, dataFile = 'input-file.csv') =>{
   //TBD
-  return await RouteDAL.getCheapest(originDestination, targetDestination, dataFile);
+  return new ResponseObj(501,'Not implemented.');
 }
 
 module.exports = RouteBLL;
