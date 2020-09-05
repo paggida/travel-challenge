@@ -3,6 +3,3 @@ module.exports = {
     return responseObj.Code === 200;
   }
 }
-
-
-
