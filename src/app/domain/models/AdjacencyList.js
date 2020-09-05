@@ -1,25 +1,34 @@
 class AdjacencyList{
-	constructor(nodesValueArray=[]){
+	constructor(nodesValueArray=[],EdgesObjArray=[]){
     this.Nodes = nodesValueArray;
+    this.Edges = EdgesObjArray;
   }
 
   GetNodesQuantity(){
     return this.Nodes.length;
   }
 
-  IsKnownNode(NodeIndex){
+  GetEdgesQuantity(){
+    return this.Edges.reduce((acumulador, nodeEdges, index)=>{
+      return acumulador + nodeEdges.filter(edge=>edge[0]>index).length
+    },0);
+  }
+
+  IsKnownIndexNode(NodeIndex){
     return NodeIndex<this.GetNodesQuantity();
   }
 
-  SetNewNode(node){
-    this.Nodes.push(node);
-  }
-  SetNewNodesInBlock(nodesValueArray=[]){
-    nodesValueArray.forEach( node => this.SetNewNode(node) );
+  getNodeIndex(NodeValue){
+    return this.Nodes.indexOf(NodeValue);
   }
 
   PrintGraph(){
-    this.Nodes.forEach( (node, index) => console.log(index, node));
+    console.log(this.Nodes);
+    this.Edges.forEach((edges, index) => {
+      edges.forEach( (edge)=>{
+        console.log(`'${this.Nodes[index]}' connect '${this.Nodes[edge[0]]}' with weight: ${edge[1]}`)
+      })
+    });
   }
 }
 
