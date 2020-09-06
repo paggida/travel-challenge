@@ -24,6 +24,6 @@ RouteDAL.getAll = async (dataFile=undefined) =>{
   }
 }
 
-const _isEmptyDataFileValue = dataFile => dataFile? true: false;
+const _isEmptyDataFileValue = dataFile => dataFile? false: true;
 
 module.exports = RouteDAL;
