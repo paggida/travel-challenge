@@ -29,6 +29,9 @@ module.exports = {
   },
   isDifferentDestinations(originDestination, targetDestination){
     return originDestination!==targetDestination;
+  },
+  isDestinationKnowInAdjacencyList(destination, adjacencyList){
+    return adjacencyList.getNodeIndex(destination)>=0;
   }
 }
 

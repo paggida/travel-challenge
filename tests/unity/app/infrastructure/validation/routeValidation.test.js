@@ -1,4 +1,5 @@
 const Route = require('../../../../../src/app/domain/models/Route');
+const AdjacencyList = require('../../../../../src/app/domain/models/AdjacencyList');
 const routeValidation = require('../../../../../src/app/infrastructure/validation/routeValidation');
 
 describe('Validation of the route in class format.', () => {
@@ -74,5 +75,20 @@ describe("Validation of the different destinations.", () => {
     const isDifferent = routeValidation.isDifferentDestinations('A','A');
 
     expect(isDifferent).toBeFalsy();
+  });
+});
+
+describe("Validation of the know destination in an adjacency list.", () => {
+  it('Should be able to validate a known destination in the list.', () => {
+    const adjacencyList = new AdjacencyList(['A','B'],[])
+    const isKnowNode = routeValidation.isDestinationKnowInAdjacencyList('A',adjacencyList);
+
+    expect(isKnowNode).toBeTruthy();
+  });
+  it('Should not be able to validate a unknown destination in the list.', () => {
+    const adjacencyList = new AdjacencyList(['A','B'],[]);
+    const isKnowNode = routeValidation.isDestinationKnowInAdjacencyList('C',adjacencyList);
+
+    expect(isKnowNode).toBeFalsy();
   });
 });
