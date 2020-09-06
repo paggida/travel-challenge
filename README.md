@@ -1,3 +1,7 @@
+<h1 align="center">
+  <img alt="Travel-Logo" src="assets/Travel-logo.png" width="200px" />
+</h1>
+
 <p align="center">The project facilitates tourists who wish to travel the world by paying the lowest possible price regardless of the number of connections.</p>
 
 ## 💻 Technologies used
