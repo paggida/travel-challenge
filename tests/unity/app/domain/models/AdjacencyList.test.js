@@ -45,18 +45,18 @@ describe('Validation of obtaining the size of edges in the adjacency list.', () 
   });
 });
 
-describe('Validation of search a index in the adjacency list.', () => {
-  it('Should be able to validate a known index in the list.', () => {
+describe('Validation of getting a node by index in the adjacency list.', () => {
+  it('Should be able to get a node by a known index in the list.', () => {
     const adjacencyListObj = new AdjacencyList(['V1','V2']);
-    const IsKnownIndexNode = adjacencyListObj.IsKnownIndexNode(0);
+    const node = adjacencyListObj.getNodeByIndex(0);
 
-    expect(IsKnownIndexNode).toBeTruthy();
+    expect(node).toBe('V1');
   });
-  it('Should not be able to validate an unknown index in the list.', () => {
+  it('Should not be able to get a node by an unknown index in the list.', () => {
     const adjacencyListObj = new AdjacencyList(['V1','V2']);
-    const IsKnownIndexNode = adjacencyListObj.IsKnownIndexNode(3);
+    const node = adjacencyListObj.getNodeByIndex(3);
 
-    expect(IsKnownIndexNode).toBeFalsy();
+    expect(node).toBeUndefined();
   });
 });
 

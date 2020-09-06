@@ -14,12 +14,12 @@ class AdjacencyList{
     },0);
   }
 
-  IsKnownIndexNode(NodeIndex){
-    return NodeIndex<this.GetNodesQuantity();
-  }
-
   getNodeIndex(NodeValue){
     return this.Nodes.indexOf(NodeValue);
+  }
+
+  getNodeByIndex(NodeIndex){
+    return this.Nodes[NodeIndex];
   }
 
   PrintGraph(){
