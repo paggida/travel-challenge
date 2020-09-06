@@ -1,3 +1,4 @@
+const Route = require('../../domain/models/Route');
 const AdjacencyList = require('../../domain/models/AdjacencyList');
 
 module.exports = {
@@ -18,6 +19,52 @@ module.exports = {
     }
 
     return new AdjacencyList(nodeArray,edgesArray);
+  },
+  getCheapestRoute(originNode,targetNode, routeAdjacencyList){
+    const originNodeIndex = routeAdjacencyList.getNodeIndex(originNode);
+    const targetNodeIndex = routeAdjacencyList.getNodeIndex(targetNode);
+    const trackPaths = { };
+    const nodesIndexPriceArray = Array(routeAdjacencyList.GetNodesQuantity()).fill("Infinity");
+    const visitedNodeArray = Array(routeAdjacencyList.GetNodesQuantity()).fill(false);
+
+    // Adds initial data from the first node
+    for (let [nodeIndex, weight] of routeAdjacencyList.Edges[originNodeIndex]){
+      nodesIndexPriceArray[nodeIndex] = weight;
+      trackPaths[routeAdjacencyList.getNodeByIndex(nodeIndex)] = originNode;
+    }
+
+    let currentNodeIndex = _getCheapestNode(nodesIndexPriceArray,visitedNodeArray);
+
+    // Navigating the edges
+    while(currentNodeIndex>=0){
+      let price = nodesIndexPriceArray[currentNodeIndex];
+
+      for (let [nodeIndex, weight] of routeAdjacencyList.Edges[currentNodeIndex]){
+        if(nodeIndex!==originNodeIndex){
+          let newTotalPriceOfPath = price + weight;
+
+          // Mark lowest prices
+          if(nodesIndexPriceArray[nodeIndex]>newTotalPriceOfPath){
+            nodesIndexPriceArray[nodeIndex]=newTotalPriceOfPath;
+            trackPaths[routeAdjacencyList.getNodeByIndex(nodeIndex)]=routeAdjacencyList.getNodeByIndex(currentNodeIndex);
+          }
+        }
+      }
+      visitedNodeArray[currentNodeIndex]=true;
+      currentNodeIndex = _getCheapestNode(nodesIndexPriceArray,visitedNodeArray)
+    }
+
+    //Get the cheapest path inside de stored paths data
+    const cheapestPath = [targetNode];
+    let trackCheapestPath = trackPaths[targetNode];
+    while(trackCheapestPath){
+      cheapestPath.push(trackCheapestPath);
+      trackCheapestPath = trackPaths[trackCheapestPath];
+    }
+    cheapestPath.reverse();
+
+    //Show the best path and the price
+    return new Route(cheapestPath,nodesIndexPriceArray[targetNodeIndex]);
   }
 }
 
@@ -38,6 +85,20 @@ const _setNodeInArrayIfNew = (node, nodesArrayOutput)=>{
 
   return nodeIndex;
 };
+const _getCheapestNode = (priceArray, visitedArray) =>{
+  let cheapestNodeIndex = -1;
+  let isCurrentCheapestNodeIndex = false;
+
+  // Accepts unvisited nodes index only if there are no edges with lower prices
+  for(let nodeIndex=0;nodeIndex<priceArray.length;nodeIndex++){
+    isCurrentCheapestNodeIndex = cheapestNodeIndex=== -1 || priceArray[nodeIndex] < priceArray[cheapestNodeIndex];
+    if (isCurrentCheapestNodeIndex && !visitedArray[nodeIndex]) {
+			cheapestNodeIndex = nodeIndex;
+		}
+  }
+
+  return cheapestNodeIndex;
+}
 
 //Edge Functions
 const _isNewEdge = edge => !edge;
@@ -70,4 +131,3 @@ const _setEdgeInArray = (routesObjWithIndex, edgesArrayOutput)=>{
     }
   }
 }
-

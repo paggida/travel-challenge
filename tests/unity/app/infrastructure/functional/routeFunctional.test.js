@@ -1,3 +1,4 @@
+const AdjacencyList = require('../../../../../src/app/domain/models/AdjacencyList');
 const routeFunctional = require('../../../../../src/app/infrastructure/functional/routeFunctional');
 
 describe('Validation of the convertion of route string to array.', () => {
@@ -60,3 +61,34 @@ describe('Validation of the convertion of routes array to adjacency list.', () =
     expect(routesAdjacencyList.Edges[nodesV3Index][1][1]).toBe(3);
   });
 });
+
+describe('Validation of the search for the cheapest route between two destinations.', () => {
+  it('Should be able to get the Route object with the cheapest route.', async () => {
+    const nodeValueArray = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ];
+    const edgesObjArray = [
+      [[1,4],[2,3],[4,7]],
+      [[0,4],[2,6],[3,5]],
+      [[0,3],[1,6],[3,11],[4,8]],
+      [[1,5],[2,11],[4,2],[6,10],[5,2]],
+      [[0,7],[2,8],[3,2],[6,5]],
+      [[3,2],[6,3]],
+      [[4,5],[3,10],[5,3]]
+    ];
+
+    const originDestination = 'A';
+    const targetDestination = 'F';
+    const adjacencyListObj = new AdjacencyList(nodeValueArray, edgesObjArray);
+    const cheapestRoute = routeFunctional.getCheapestRoute(originDestination,targetDestination,adjacencyListObj);
+    const bestRouteString = cheapestRoute.getBestRouteString();
+
+    expect(cheapestRoute).toHaveProperty('Destinations');
+    expect(cheapestRoute).toHaveProperty('Price');
+    expect(cheapestRoute.Destinations).toHaveLength(4);
+    expect(cheapestRoute.Destinations[0]).toBe(originDestination);
+    expect(cheapestRoute.Destinations[1]).toBe('B');
+    expect(cheapestRoute.Destinations[2]).toBe('D');
+    expect(cheapestRoute.Destinations[3]).toBe(targetDestination);
+    expect(cheapestRoute.Price).toBe(11);
+    expect(bestRouteString).toBe('A - B - D - F > $11');
+  })
+})
