@@ -75,3 +75,18 @@ describe('Validation of search a index by Node value in the adjacency list.', ()
   });
 });
 
+describe('Validation of get size of edges in a node.', () => {
+  it('Should be able to get the number of edges in a known Node.', () => {
+    const adjacencyListObj = new AdjacencyList(['V1','V2'],[[[1,1]],[[0,1]]]);
+    const edgesInNode = adjacencyListObj.GetNodeEdgesQuantity('V1');
+
+    expect(edgesInNode).toBe(1);
+  });
+  it('Should not be able to get the number of edges in a unknown Node.', () => {
+    const adjacencyListObj = new AdjacencyList(['V1','V2']);
+    const edgesInNode = adjacencyListObj.GetNodeEdgesQuantity('V0');
+
+    expect(edgesInNode).toBe(-1);
+  });
+});
+

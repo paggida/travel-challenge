@@ -14,6 +14,11 @@ class AdjacencyList{
     },0);
   }
 
+  GetNodeEdgesQuantity(nodeValue){
+    const nodeIndex = this.getNodeIndex(nodeValue);
+    return nodeIndex>=0? this.Edges[nodeIndex].length : -1;
+  }
+
   getNodeIndex(NodeValue){
     return this.Nodes.indexOf(NodeValue);
   }
