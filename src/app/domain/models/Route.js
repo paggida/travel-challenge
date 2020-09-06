@@ -5,7 +5,8 @@ class Route{
   }
 
   ToScvString(){
-    return `${this.Destinations[0]},${this.Destinations[1]},${this.Price}`
+    const destinationsString = this.Destinations.reduce((string, destination)=>`${string?`${string},`:''}${destination}`)
+    return `${destinationsString},${this.Price}`
   }
 }
 
