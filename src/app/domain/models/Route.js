@@ -8,6 +8,11 @@ class Route{
     const destinationsString = this.Destinations.reduce((string, destination)=>`${string?`${string},`:''}${destination}`)
     return `${destinationsString},${this.Price}`
   }
+
+  getBestRouteString(){
+    const destinationsString = this.Destinations.reduce((string, destination)=>`${string?`${string} - `:''}${destination}`)
+    return `${destinationsString} > $${this.Price}`
+  }
 }
 
 module.exports = Route
