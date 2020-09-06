@@ -26,6 +26,9 @@ module.exports = {
       return price>=0;
     }
     return false;
+  },
+  isDifferentDestinations(originDestination, targetDestination){
+    return originDestination!==targetDestination;
   }
 }
 

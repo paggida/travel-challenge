@@ -63,3 +63,16 @@ describe("Validation of the route's price.", () => {
     expect(isValid).toBeFalsy();
   });
 });
+
+describe("Validation of the different destinations.", () => {
+  it('Should be able to validate different destinations.', () => {
+    const isDifferent = routeValidation.isDifferentDestinations('A','B');
+
+    expect(isDifferent).toBeTruthy();
+  });
+  it('Should not be able to validate equals destinations.', () => {
+    const isDifferent = routeValidation.isDifferentDestinations('A','A');
+
+    expect(isDifferent).toBeFalsy();
+  });
+});
