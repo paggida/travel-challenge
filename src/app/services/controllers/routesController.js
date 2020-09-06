@@ -21,6 +21,12 @@ module.exports = {
   async getCheapest(req, res) {
     const { originDestination, targetDestination } = req.params;
 
-    return res.status(200).json({ message: `${originDestination} - ${targetDestination}`});
+    if(routeValidation.isValidDestination(originDestination) && routeValidation.isValidDestination(targetDestination)){
+      const { Code, Data } = await RouteBLL.getCheapest(originDestination, targetDestination);
+
+      return res.status(Code).json(Data);
+    }else{
+      return res.status(401).json({ message: 'Invalid destinations.'});
+    }
   }
 };

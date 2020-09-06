@@ -1,7 +1,9 @@
 const request = require('supertest');
 const app = require('../../../../../src/server');
 const Route = require('../../../../../src/app/domain/models/Route');
+const AdjacencyList = require('../../../../../src/app/domain/models/AdjacencyList');
 const routeDBServices = require('../../../../../src/database/services/routeDBServices');
+const routeFunctional = require('../../../../../src/app/infrastructure/functional/routeFunctional');
 
 describe('Validation of the route create flow.', () => {
   afterAll(async () => {
@@ -116,3 +118,35 @@ describe('Validation of the route create flow.', () => {
     expect(newRoutesData.length).toBe(oldRoutesData.Data.length);
   });
 });
+
+describe('Validation of the flow to find the cheapest route between two destinations.', () => {
+  it('Should be able to get the cheapest route between different destinations.', async () => {
+    const originDestination = 'GRU';
+    const targetDestination = 'CDG';
+    const routesDataArray = await routeDBServices.getAll();
+    const routesDataAdjacencyList = routeFunctional.getConvertRoutesArrayToAdjacencyList(routesDataArray.Data);
+    const cheapestRoute = routeFunctional.getCheapestRoute(originDestination,targetDestination,routesDataAdjacencyList);
+
+    const { status, body } = await request(app)
+      .get(`/travel-api/routes/${originDestination}/${targetDestination}`);
+
+    expect(status).toBe(200);
+    expect(routesDataArray.Code).toBe(200);
+    expect(body).toHaveProperty('Destinations', cheapestRoute.Destinations);
+    expect(body).toHaveProperty('Price',cheapestRoute.Price);
+    expect(body.Destinations[0]).toBe(originDestination);
+    expect(body.Destinations[body.Destinations.length-1]).toBe(targetDestination);
+    expect(1).toBe(1);
+  })
+  it('Should not be able to get the cheapest route between equals destinations.', async () => {
+    const originDestination = 'GRU';
+    const targetDestination = 'GRU';
+
+    const { status, body } = await request(app)
+      .get(`/travel-api/routes/${originDestination}/${targetDestination}`);
+
+    expect(status).toBe(401);
+    expect(body).toHaveProperty('message', 'Destinations are the same value.');
+    expect(1).toBe(1);
+  })
+})
