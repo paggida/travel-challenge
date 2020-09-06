@@ -13,7 +13,7 @@ describe('Validation of the route create flow.', () => {
     const oldRoutesData = await routeDBServices.getAll();
 
     const { status, body } = await request(app)
-      .post('/api/route')
+      .post('/travel-api/route')
       .send({
         Destinations: ['TestRouteJest','TestRouteJest'],
         Price: 999.99
@@ -35,7 +35,7 @@ describe('Validation of the route create flow.', () => {
     const oldRoutesData = await routeDBServices.getAll();
 
     const { status, body } = await request(app)
-      .post('/api/route')
+      .post('/travel-api/route')
       .send({
         Destinations: ['TestRouteJest'],
         Price: 999.99
@@ -52,7 +52,7 @@ describe('Validation of the route create flow.', () => {
     const oldRoutesData = await routeDBServices.getAll();
 
     const { status, body } = await request(app)
-      .post('/api/route')
+      .post('/travel-api/route')
       .send({
         Destinations: [],
         Price: 999.99
@@ -69,7 +69,7 @@ describe('Validation of the route create flow.', () => {
     const oldRoutesData = await routeDBServices.getAll();
 
     const { status, body } = await request(app)
-      .post('/api/route')
+      .post('/travel-api/route')
       .send({
         Destinations: ['TestRouteJest','TestRouteJest'],
         Price: -999.99
@@ -86,7 +86,7 @@ describe('Validation of the route create flow.', () => {
     const oldRoutesData = await routeDBServices.getAll();
 
     const { status, body } = await request(app)
-      .post('/api/route')
+      .post('/travel-api/route')
       .send({
         Destinations: ['TestRouteJest','TestRouteJest']
       });
@@ -102,7 +102,7 @@ describe('Validation of the route create flow.', () => {
     const oldRoutesData = await routeDBServices.getAll();
 
     const { status, body } = await request(app)
-      .post('/api/route')
+      .post('/travel-api/route')
       .send({
         Destinations: ['TestRouteJest','TestRouteJest'],
         Price: 999.99
