@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "",
-    "version": "1.0",
-    "title": "Travel project API"
+    "version": "1.5",
+    "title": "Travel project API",
+    "description": "This project is based on finding the shortest path among an undirected and weighted graph."
   },
   "host": "localhost:3000",
   "tags": [
@@ -28,7 +28,22 @@
         ],
         "responses": {
           "200": {
-            "description": "successful operation"
+            "description": "Successful route creation.",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          },
+          "401": {
+            "description": "Invalid route object / Route already existing.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       }
@@ -57,7 +72,28 @@
         ],
         "responses": {
           "200": {
-            "description": "successful operation"
+            "description": "Successful operation.",
+            "schema": {
+              "$ref": "#/definitions/Route"
+            }
+          },
+          "401": {
+            "description": "Invalid destinations / Destinations are the same value.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Destination not found.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       }
@@ -78,13 +114,15 @@
         }
       }
     },
+    "Success": {
+      "type": "object",
+      "properties": {
+        "message": { "type": "string" }
+      }
+    },
     "Error": {
       "type": "object",
       "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
         "message": { "type": "string" }
       }
     }
