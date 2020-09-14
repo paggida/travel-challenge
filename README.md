@@ -6,10 +6,11 @@
 
 ## 💻 Technologies used
 - [NodeJs](https://nodejs.org/en/) in API.
+- [Typescript](https://www.typescriptlang.org/) in code.
 - [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) as Database.
 - [Jest](https://jestjs.io/en/) for tests.
 - [Swagger](https://swagger.io/) for documentation.
-
+s
 ## ✋🏻 Prerequisite
 To execute this project you will need to have the following component in your environment.
 ### **Node**
@@ -24,13 +25,21 @@ The application has two interaction interfaces: an API rest and a CLI command mo
 
     yarn
 
+The project is built with Typescript, so to compile it to javascript use the command:
+
+    yarn build
+
+After the compilation is finished copy the folder ```<project's root folder>/src/database/data``` to the location ```<project's root folder>/dist/src/database```
+
 ### **ClI engine**
-First you must link the application to have global access to make calls to the CLI module, you perform this action by executing the commands below in the project's root folder:
+Firstly you must link the application to have global access to make calls to the CLI module, you perform this action by executing the commands below in the project's root folder (with ```sudo``` in Linux):
 
     yarn link
-In sequence run:
 
-    yarn link "travel"
+If the operating system of the environment is linux, the following command is required to give permission to the program:
+
+    chmod +x /usr/local/bin/travel-cli
+
 Now the CLI module is available for access, just use the command below:
 
     travel-cli input-file.csv

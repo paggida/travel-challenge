@@ -48,7 +48,7 @@
         }
       }
     },
-    "/travel-api/routes/{originDestination}/{targetDestination}": {
+    "/travel-api/route/getCheapest/{originDestination}/{targetDestination}": {
       "get": {
         "tags": ["Routes"],
         "summary": "Search for the best route between two destinations.",

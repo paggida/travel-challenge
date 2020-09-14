@@ -1,6 +1,6 @@
-const Route = require('../../../../../src/app/domain/models/Route');
-const AdjacencyList = require('../../../../../src/app/domain/models/AdjacencyList');
-const routeValidation = require('../../../../../src/app/infrastructure/validation/routeValidation');
+import Route from '../../../../../src/app/domain/models/Route';
+import AdjacencyList from '../../../../../src/app/domain/models/AdjacencyList';
+import * as routeValidation from '../../../../../src/app/infrastructure/validation/routeValidation';
 
 describe('Validation of the route in class format.', () => {
   it('Should be able to validate a valid route object.', () => {
@@ -10,7 +10,8 @@ describe('Validation of the route in class format.', () => {
     expect(isValid).toBeTruthy();
   });
   it('Should not be able to validate a invalid route object', () => {
-    const isValid = routeValidation.isValidRouteObject({ Destinations: ['A', 'B'], Price: 10});
+    const routeObj = new Route(['A'],10);
+    const isValid = routeValidation.isValidRouteObject(routeObj);
 
     expect(isValid).toBeFalsy();
   });
@@ -54,12 +55,12 @@ describe('Validation of the destination.', () => {
 
 describe("Validation of the route's price.", () => {
   it('Should be able to validate a valid price.', () => {
-    const isValid = routeValidation.isValidPrice(25.38);
+    const isValid = routeValidation.IsPositiveNumber(25.38);
 
     expect(isValid).toBeTruthy();
   });
-  it('Should not be able to validate a invalid format price.', () => {
-    const isValid = routeValidation.isValidPrice('25.A');
+  it('Should not be able to validate a invalid price.', () => {
+    const isValid = routeValidation.IsPositiveNumber(-25);
 
     expect(isValid).toBeFalsy();
   });

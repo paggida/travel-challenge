@@ -1,4 +1,4 @@
-const Route = require('../../../../../src/app/domain/models/Route');
+import Route from '../../../../../src/app/domain/models/Route';
 
 describe('Validation of the instance of a Route object.', () => {
   it('Should be able to instance a valid Route object.', () => {
@@ -20,7 +20,7 @@ describe('Validation of the conversions methods in a Route object.', () => {
   });
   it('Should be able to convert a valid Route object in a string with the format of "the best route".', () => {
     const routeObj = new Route(['TestRouteJest1','TestRouteJest2','TestRouteJest3'],10)
-    const bestRouteString = routeObj.getBestRouteString();
+    const bestRouteString = routeObj.GetBestRouteString();
 
     expect(bestRouteString).toBe('TestRouteJest1 - TestRouteJest2 - TestRouteJest3 > $10');
   });

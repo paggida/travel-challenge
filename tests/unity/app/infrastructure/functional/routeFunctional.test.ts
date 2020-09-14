@@ -1,16 +1,16 @@
-const AdjacencyList = require('../../../../../src/app/domain/models/AdjacencyList');
-const routeFunctional = require('../../../../../src/app/infrastructure/functional/routeFunctional');
+import AdjacencyList from '../../../../../src/app/domain/models/AdjacencyList';
+import { getConvertRouteStringToArray, getConvertRoutesArrayToAdjacencyList, getCheapestRoute } from '../../../../../src/app/infrastructure/functional/routeFunctional';
 
 describe('Validation of the convertion of route string to array.', () => {
   it('Should be able to convert a route string to array.', () => {
-    const routeStringArray = routeFunctional.getConvertRouteStringToArray('ABC-CBA');
+    const routeStringArray = getConvertRouteStringToArray('ABC-CBA');
 
     expect(routeStringArray).toHaveLength(2);
     expect(routeStringArray[0]).toBe('ABC');
     expect(routeStringArray[1]).toBe('CBA');
   });
   it('Should be able to convert a single string to array.', () => {
-    const stringArray = routeFunctional.getConvertRouteStringToArray('ABC');
+    const stringArray = getConvertRouteStringToArray('ABC');
 
     expect(stringArray).toHaveLength(1);
     expect(stringArray[0]).toBe('ABC');
@@ -26,12 +26,12 @@ describe('Validation of the convertion of routes array to adjacency list.', () =
       [ 'V1', 'V2', '1' ]
     ]
 
-    const routesAdjacencyList = routeFunctional.getConvertRoutesArrayToAdjacencyList(routesArray);
+    const routesAdjacencyList = getConvertRoutesArrayToAdjacencyList(routesArray);
     const nodesQuantity = routesAdjacencyList.GetNodesQuantity();
     const edgesQuantity = routesAdjacencyList.GetEdgesQuantity();
-    const nodesV1Index = routesAdjacencyList.getNodeIndex('V1');
-    const nodesV2Index = routesAdjacencyList.getNodeIndex('V2');
-    const nodesV3Index = routesAdjacencyList.getNodeIndex('V3');
+    const nodesV1Index = routesAdjacencyList.GetNodeIndex('V1');
+    const nodesV2Index = routesAdjacencyList.GetNodeIndex('V2');
+    const nodesV3Index = routesAdjacencyList.GetNodeIndex('V3');
 
     expect(nodesQuantity).toBe(3);
     expect(edgesQuantity).toBe(3);
@@ -78,8 +78,8 @@ describe('Validation of the search for the cheapest route between two destinatio
     const originDestination = 'A';
     const targetDestination = 'F';
     const adjacencyListObj = new AdjacencyList(nodeValueArray, edgesObjArray);
-    const cheapestRoute = routeFunctional.getCheapestRoute(originDestination,targetDestination,adjacencyListObj);
-    const bestRouteString = cheapestRoute.getBestRouteString();
+    const cheapestRoute = getCheapestRoute(originDestination,targetDestination,adjacencyListObj);
+    const bestRouteString = cheapestRoute.GetBestRouteString();
 
     expect(cheapestRoute).toHaveProperty('Destinations');
     expect(cheapestRoute).toHaveProperty('Price');

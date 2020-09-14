@@ -1,5 +1,4 @@
-const ResponseObj = require('../../../../../src/app/domain/models/ResponseObj');
-const fileNameValidation = require('../../../../../src/app/infrastructure/validation/fileNameValidation');
+import * as fileNameValidation from '../../../../../src/app/infrastructure/validation/fileNameValidation';
 
 describe('Validation of the format file name.', () => {
   it('Should be able to validate a valid format file name.', () => {

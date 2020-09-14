@@ -1,4 +1,4 @@
-const AdjacencyList = require('../../../../../src/app/domain/models/AdjacencyList');
+import AdjacencyList from '../../../../../src/app/domain/models/AdjacencyList';
 
 describe('Validation of the instance of a AdjacencyList object.', () => {
   it('Should be able to instance a valid AdjacencyList object with initial nodes.', () => {
@@ -48,13 +48,13 @@ describe('Validation of obtaining the size of edges in the adjacency list.', () 
 describe('Validation of getting a node by index in the adjacency list.', () => {
   it('Should be able to get a node by a known index in the list.', () => {
     const adjacencyListObj = new AdjacencyList(['V1','V2']);
-    const node = adjacencyListObj.getNodeByIndex(0);
+    const node = adjacencyListObj.GetNodeByIndex(0);
 
     expect(node).toBe('V1');
   });
   it('Should not be able to get a node by an unknown index in the list.', () => {
     const adjacencyListObj = new AdjacencyList(['V1','V2']);
-    const node = adjacencyListObj.getNodeByIndex(3);
+    const node = adjacencyListObj.GetNodeByIndex(3);
 
     expect(node).toBeUndefined();
   });
@@ -63,13 +63,13 @@ describe('Validation of getting a node by index in the adjacency list.', () => {
 describe('Validation of search a index by Node value in the adjacency list.', () => {
   it('Should be able to get the index of a known Node in the list.', () => {
     const adjacencyListObj = new AdjacencyList(['V1','V2']);
-    const indexNode = adjacencyListObj.getNodeIndex('V2');
+    const indexNode = adjacencyListObj.GetNodeIndex('V2');
 
     expect(indexNode).toBe(1);
   });
   it('Should not be able to get the index of a unknown Node in the list.', () => {
     const adjacencyListObj = new AdjacencyList(['V1','V2']);
-    const indexNode = adjacencyListObj.getNodeIndex('V0');
+    const indexNode = adjacencyListObj.GetNodeIndex('V0');
 
     expect(indexNode).toBe(-1);
   });
